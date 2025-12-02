@@ -46,10 +46,13 @@ async def export_md(callback: types.CallbackQuery, state: FSMContext):
     collected = gathered.get("collected", [])
     await state.clear()
     to_export = []
-    for message in collected:
+    for i, message in enumerate(collected, 1):
+        # Заголовок сообщения
+        to_export.append(f"\n## Сообщение #{i}")
+
         # дата
         if message.date:
-            to_export.append(message.date.strftime("%Y-%m-%d %H:%M:%S"))
+            to_export.append(f"**Дата:** {message.date.strftime('%Y-%m-%d %H:%M:%S')}  ")
 
         # форвард?
         if message.forward_origin:
@@ -59,27 +62,24 @@ async def export_md(callback: types.CallbackQuery, state: FSMContext):
                 u = origin.sender_user
                 full_name = " ".join(x for x in [u.first_name, u.last_name] if x)
                 username = f"@{u.username}" if u.username else ""
-                line = f"Переслано от: *{full_name}*"
+                line = f"**Переслано от:** {full_name}"
                 if username:
-                    line += f", {username}"
+                    line += f" ({username})  "
                 to_export.append(line)
 
             elif isinstance(origin, MessageOriginHiddenUser):
-                # тут только строка имени
-                to_export.append(f"Переслано от: *{origin.sender_user_name}*")
+                to_export.append(f"**Переслано от:** {origin.sender_user_name}  ")
 
             elif isinstance(origin, MessageOriginChannel):
-            # сообщение от канала
                 chat_title = getattr(origin.chat, "title", None) or "Channel"
-                to_export.append(f"Переслано от канала: *{chat_title}*")
-            
+                to_export.append(f"**Переслано от канала:** {chat_title}  ")
+
             elif isinstance(origin, MessageOriginChat):
                 chat_title = getattr(origin.chat, "title", None) or "Chat"
-                to_export.append(f"Переслано от чата: *{chat_title}*")
-            
+                to_export.append(f"**Переслано от чата:** {chat_title}  ")
+
             else:
-                # на всякий случай fallback
-                to_export.append("Переслано от: *unknown*")
+                to_export.append("**Переслано от:** unknown  ")
 
         else:
             # обычное сообщение (НЕ форвард)
@@ -87,85 +87,76 @@ async def export_md(callback: types.CallbackQuery, state: FSMContext):
                 u = message.from_user
                 full_name = " ".join(x for x in [u.first_name, u.last_name] if x)
                 username = f"@{u.username}" if u.username else ""
-                line = f"От: *{full_name}*"
+                line = f"**От:** {full_name}  "
                 if username:
-                    line += f", {username}"
+                    line += f"({username})  "
                 to_export.append(line)
+
         if message.photo:
-            # фото
-            if not message.caption:
-                to_export.append(f"[Фото]\n")
-            elif message.caption:
-                to_export.append(f"[Фото]\n")
-                to_export.append(message.caption + "\n")
-        #документ
-        if message.document:
-            if not message.caption:
-                to_export.append(f"[Файл]: *{message.document.file_name}*\n")
-            elif message.caption:
-                to_export.append(f"[Файл]: *{message.document.file_name}*")
-                to_export.append(message.caption + "\n")
-        #видео
-        if message.video:
-            if not message.caption:
-                to_export.append(f"[Видео]: *{message.video.file_name}*\n")
-            elif message.caption:
-                to_export.append(f"[Видео]: *{message.video.file_name}*")
-                to_export.append(message.caption + "\n")
-        #аудиофайл
-        if message.audio:
-            to_export.append(f"[Аудио]: *{message.audio.file_name}*")
+            to_export.append("📷 **[Фото]**  ")
             if message.caption:
-                to_export.append(message.caption + "\n")
-        #кружок
+                to_export.append(f"> {message.caption}")
+
+        if message.document:
+            to_export.append(f"📎 **[Файл]:** `{message.document.file_name}`  ")
+            if message.caption:
+                to_export.append(f"> {message.caption}")
+
+        if message.video:
+            to_export.append(f"🎥 **[Видео]**  ")
+            if message.caption:
+                to_export.append(f"> {message.caption}")
+
+        if message.audio:
+            to_export.append(f"🎵 **[Аудио]:** `{message.audio.file_name}`  ")
+            if message.caption:
+                to_export.append(f"> {message.caption}")
+
         if message.video_note:
-            to_export.append(f"[Кружок]\n")
-        #голосовое
+            to_export.append("🎬 **[Кружок]**  ")
+
         if message.voice:
-            to_export.append(f"[Голосовое сообщение]\n")
-        #стикер
+            to_export.append("🎤 **[Голосовое сообщение]**  ")
+
         if message.sticker:
-            to_export.append(f"[Стикер]: {message.sticker.emoji}\n")
-        #контакт
+            to_export.append(f"🎨 **[Стикер]:** {message.sticker.emoji}  ")
+
         if message.contact:
-            to_export.append(f"[Контакт]: *{message.contact.phone_number}*")
-        #чеклист
+            to_export.append(f"👤 **[Контакт]:** `{message.contact.phone_number}`  ")
+
         if message.checklist:
-            to_export.append(f"[Список]:\n**{message.checkist.title}**")
+            to_export.append(f"✅ **[Список]:** {message.checklist.title}  ")
             for ChecklistTask in message.checklist.tasks:
-                to_export.append(f"- {ChecklistTask.text}\n")
-        # опрос (господи блять!)
+                to_export.append(f"  - {ChecklistTask.text}")
+
         if message.poll:
             poll = message.poll
-            #заголовок
-            to_export.append("[Опрос]")
-            #вопрос
-            to_export.append(f"Вопрос: **{poll.question}**")
-            #варианты
+            to_export.append(f"📊 **[Опрос]**  ")
+            to_export.append(f"**Вопрос:** {poll.question}  ")
+            to_export.append("**Варианты:**  ")
             for option in poll.options:
-                to_export.append(f"- {option.text} — {option.voter_count} голосов\n")
-            # общее количество голосов
-            to_export.append(f"Всего голосов: {poll.total_voter_count}")
-            # Тип опроса
+                to_export.append(f"  - {option.text} — {option.voter_count} 🗳️")
+            to_export.append(f"**Всего голосов:** {poll.total_voter_count}  ")
+
             if poll.type == "quiz":
-                to_export.append("Тип: викторина\n")
+                to_export.append("**Тип:** викторина  ")
                 if poll.correct_option_id is not None:
                     correct = poll.options[poll.correct_option_id]
-                    to_export.append(f"Правильный ответ: *{correct.text}*\n")
+                    to_export.append(f"**✓ Правильный ответ:** {correct.text}  ")
             else:
-                to_export.append("Тип: обычный опрос")
-            # несколько вариантов
+                to_export.append("**Тип:** обычный опрос  ")
+
             if poll.allows_multiple_answers:
-                to_export.append("Несколько ответов: да")
+                to_export.append("**Несколько ответов:** да  ")
             else:
-                to_export.append("Несколько ответов: нет")
-            # обьяснение
+                to_export.append("**Несколько ответов:** нет  ")
+
             if poll.explanation:
-                to_export.append(f"Обьяснение: {poll.explanation}\n")
-        
+                to_export.append(f"**Объяснение:** {poll.explanation}  ")
+
         # текст сообщения
         if message.text:
-            to_export.append(message.text + "\n")
+            to_export.append(message.text)
     
     await state.clear()
     md_text = "\n".join(to_export)
