@@ -4,8 +4,15 @@ import subprocess
 import datetime
 import time
 import threading
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QLabel, QWidget, QLineEdit, QPushButton, QTextEdit
+import asyncio
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QLabel, QWidget, QLineEdit, QPushButton, QTextEdit
 from PyQt5.QtCore import pyqtSignal, QObject, QSettings
+
+# если запущено с флагом --bot-mode, запустить бота вместо GUI
+if '--bot-mode' in sys.argv:
+    import bot_main
+    asyncio.run(bot_main.main())
+    sys.exit()
 
 
 class LogSignal(QObject):
@@ -65,12 +72,16 @@ class BotGUI(QMainWindow):
                 self.log_emitter.log_signal.emit(line.strip())
         
     def start_clicked(self):
+        if self.bot_process and self.bot_process.poll() is None:
+            self.log_window.append(f"Already running {[datetime.datetime.now().strftime('%H:%M:%S')]}")
+            return
+
         self.log_window.append(f"Started {[datetime.datetime.now().strftime('%H:%M:%S')]}")
         env = os.environ.copy()
-        python_path = sys.executable
         env["BOT_TOKEN"] = self.token_input.text()
-        
-        self.bot_process = subprocess.Popen([python_path, "bot_main.py"], env = env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
+
+        exe_path = sys.executable
+        self.bot_process = subprocess.Popen([exe_path, '--bot-mode'], env = env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8")
         
         thread = threading.Thread(target=self.read_logs, daemon=True) # отдельный тред для чтения логов(васянство!)
         thread.start()

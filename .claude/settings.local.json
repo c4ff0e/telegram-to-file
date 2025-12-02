@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(dir C:projectstg-to-md /B)"
-    ],
-    "deny": [],
-    "ask": []
-  }
-}
