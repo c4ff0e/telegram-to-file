@@ -1,9 +1,9 @@
-># Telegram to .MD 🗨️->🗒️
+># Telegram to file 🗨️->🗒️
 ## [RU](#RU) | [EN](#EN)
 ### RU
-Бот для экспорта Telegram сообщений в .md файл.
+Бот для экспорта Telegram сообщений в файл.
 
-@[future] - уже рабочий бот. Он [**НЕ СОХРАНЯЕТ**](https://github.com/c4ff0e/telegram-to-.md/blob/main/md_helper.py#L176) ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
+@[future] - уже рабочий бот. Он [**НЕ СОХРАНЯЕТ**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
 - **Зачем?**  
 Один раз мне понадобилось экспортировать сообщения из телеги в читаемом текстовом виде (а не html, скриншотом, или ctrl+c ctrl+v в блокнот). И я не хотел скачивать какие-то левые инструменты. А ещё потому что я могу.
 
@@ -18,7 +18,7 @@
 
 ## Запуск
 ### Готовый .exe
-1. Скачайте [последнюю версию лаунчера](https://github.com/c4ff0e/tg-to-.md/releases/latest)
+1. Скачайте [последнюю версию лаунчера](https://github.com/c4ff0e/telegram-to-file/releases/latest)
 2. Запустите .exe
 3. Вставьте свой токен в поле ввода ([**ПОЛУЧИТЬ ТОКЕН ЗДЕСЬ**](https://t.me/botfather))
 4. Нажмите на кнопку "Start"
@@ -29,9 +29,9 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/c4ff0e/tg-to-.md
+git clone https://github.com/c4ff0e/telegram-to-file
 
-cd tg-to-.md
+cd telegram-to-file
 ```
 
 2. Создайте и активируйте виртуальное окружение:
@@ -64,8 +64,8 @@ python bot_main.py # Бот
 ## EN
 ### English
 
-A bot for exporting Telegram messages to `.md` file.  
-@[future] - already a working bot. It [**DOES NOT SAVE**](https://github.com/c4ff0e/telegram-to-.md/blob/main/md_helper.py#L176) your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
+A bot for exporting Telegram messages to file.  
+@[future] - already a working bot. It [**DOES NOT SAVE**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
 
 - **Why?**
 
@@ -85,7 +85,7 @@ Very simple.
 
 ### Pre-built .exe
 
-1. Download the [latest launcher version](https://github.com/c4ff0e/tg-to-.md/releases/latest)
+1. Download the [latest launcher version](https://github.com/c4ff0e/telegram-to-file/releases/latest)
 2. Run the .exe
 3. Enter your bot token ([**GET TOKEN HERE**](https://t.me/botfather))
 4. Click the "Start" button
@@ -97,9 +97,9 @@ Send /start to your bot and start exporting your messages.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/c4ff0e/tg-to-.md
+git clone https://github.com/c4ff0e/telegram-to-file
 
-cd tg-to-.md
+cd telegram-to-file
 ```
 
 2. Create and activate virtual environment:
