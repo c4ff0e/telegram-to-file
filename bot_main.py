@@ -16,6 +16,7 @@ class Converter(StatesGroup):
     choice_md = State()
     choice_txt = State()
     wait_for_messages_md = State()
+    wait_for_messages_txt = State()
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=os.getenv("BOT_TOKEN"), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
@@ -23,7 +24,7 @@ dp = Dispatcher()
 language = 'ru'
 router = Router()
 
-@dp.message(Command("start"))
+@dp.message(Command("start"), StateFilter(None))
 async def start(message: Message):
     await message.answer(
 """
@@ -50,6 +51,8 @@ async def cancel(callback: types.CallbackQuery, state: FSMContext):
 async def main():
     import md_helper
     dp.include_router(md_helper.router)
+    import txt_helper
+    dp.include_router(txt_helper.router)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
