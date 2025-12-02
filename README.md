@@ -3,7 +3,7 @@
 ### RU
 Бот для экспорта Telegram сообщений в .md файл.
 
-@[future] - уже рабочий бот. Он **НЕ СОХРАНЯЕТ** ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
+@[future] - уже рабочий бот. Он [**НЕ СОХРАНЯЕТ**](https://github.com/c4ff0e/telegram-to-.md/blob/main/md_helper.py#L176) ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
 - **Зачем?**  
 Один раз мне понадобилось экспортировать сообщения из телеги в читаемом текстовом виде (а не html, скриншотом, или ctrl+c ctrl+v в блокнот). И я не хотел скаичвать какие-то левые инструменты. А ещё потому что я могу.
 
@@ -20,7 +20,7 @@
 ### Готовый .exe
 1. Скачайте [последнюю версию лаунчера](https://github.com/c4ff0e/tg-to-.md/releases/latest)
 2. Запустите .exe
-3. Вставьте свой токен в поле ввода ([ПОЛУЧИТЬ ТОКЕН ЗДЕСЬ](https://t.me/botfather))
+3. Вставьте свой токен в поле ввода ([**ПОЛУЧИТЬ ТОКЕН ЗДЕСЬ**](https://t.me/botfather))
 4. Нажмите на кнопку "Start"
 5. ВСЁ!   
 Напишите /start в своём боте и экспортируйте свои сообщения.
@@ -52,7 +52,7 @@ pip install -r requirements.txt
 ```
 BOT_TOKEN=123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ```
-[ПОЛУЧИТЬ ТОКЕН ЗДЕСЬ](https://t.me/botfather)
+[**ПОЛУЧИТЬ ТОКЕН ЗДЕСЬ**](https://t.me/botfather)
 
 5. Запустите GUI или бота напрямую:
 ```bash
@@ -65,7 +65,7 @@ python bot_main.py # Бот
 ### English
 
 A bot for exporting Telegram messages to `.md` file.  
-@[future] - already a working bot. It **DOES NOT SAVE** your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
+@[future] - already a working bot. It [**DOES NOT SAVE**](https://github.com/c4ff0e/telegram-to-.md/blob/main/md_helper.py#L176) your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
 
 - **Why?**
 
@@ -77,8 +77,8 @@ Very simple.
 
 ## Features
 
-- Export messages to `.md` format (Markdown)
-- Export messages to `.txt` format (plain text)
+- Export messages to `.md` format
+- Export messages to `.txt` format
 - Save metadata (date, author, forwarding source)
 
 ## Launch
@@ -87,7 +87,7 @@ Very simple.
 
 1. Download the [latest launcher version](https://github.com/c4ff0e/tg-to-.md/releases/latest)
 2. Run the .exe
-3. Enter your bot token ([GET TOKEN HERE](https://t.me/botfather))
+3. Enter your bot token ([**GET TOKEN HERE**](https://t.me/botfather))
 4. Click the "Start" button
 5. Done!
 
@@ -120,7 +120,7 @@ pip install -r requirements.txt
 ```
 BOT_TOKEN=123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ```
-[Get token](https://t.me/botfather)
+[**GET TOKEN HERE**](https://t.me/botfather)
 
 5. Run GUI or bot directly:
 ```bash
