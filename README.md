@@ -3,7 +3,7 @@
 ### RU
 Бот для экспорта Telegram сообщений в файл.
 
-@[future] - уже рабочий бот. Он [**НЕ СОХРАНЯЕТ**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
+@tgtofile_bot - уже рабочий бот. Он [**НЕ СОХРАНЯЕТ**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) ваши сообщения на сервере. Если вы всё равно боитесь за ваши данные - ниже есть [инструкция по запуску](#запуск).
 - **Зачем?**  
 Один раз мне понадобилось экспортировать сообщения из телеги в читаемом текстовом виде (а не html, скриншотом, или ctrl+c ctrl+v в блокнот). И я не хотел скачивать какие-то левые инструменты. А ещё потому что я могу.
 
@@ -65,7 +65,7 @@ python bot_main.py # Бот
 ### English
 
 A bot for exporting Telegram messages to file.  
-@[future] - already a working bot. It [**DOES NOT SAVE**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
+@tgtofile_bot - already a working bot. It [**DOES NOT SAVE**](https://github.com/c4ff0e/telegram-to-file/blob/main/md_helper.py#L176) your messages anywhere. If you're still concerned about your data privacy - see the [launch instructions](#launch) below.
 
 - **Why?**
 
